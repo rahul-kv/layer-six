@@ -46,6 +46,7 @@ INJECTION_PATTERNS = [
     r"SYSTEM\s*UPDATE",
     r"new\s+instructions\s+are",
     r"do\s+anything\s+now",
+    r"your\s+(instructions|operating\s+instructions)",
 ]
 
 

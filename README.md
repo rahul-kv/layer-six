@@ -1,8 +1,8 @@
 # Layer 4: Agents & Orchestration Workshop
 
-A hands-on workshop on building AI agents with LangChain, LangGraph, and LangSmith.
+A hands-on workshop on building AI agents with LangChain, LangGraph, LangSmith, and LLM Evaluation.
 
-**Duration:** 4 hours (2 days x 2 hours)
+**Duration:** 6 hours (3 days x 2 hours)
 **Format:** Instructor-led with follow-along coding exercises
 
 ---
@@ -14,6 +14,7 @@ A hands-on workshop on building AI agents with LangChain, LangGraph, and LangSmi
 | 1. LangChain Agent | `01-langchain-agent` | A Research Assistant with web search, calculator, and Wikipedia tools |
 | 2. LangGraph Agent | `02-langgraph-agent` | A stateful Blog Writer with planning, research, writing, and review stages |
 | 3. LangSmith | `03-langsmith` | Tracing, evaluation datasets, LLM-as-judge evaluators, and prompt management |
+| 4. LLM Evaluation | `04-llm-evaluation` | Golden datasets, LLM-as-judge, adversarial testing, RAG evaluation, and prompt regression |
 
 ---
 
@@ -39,6 +40,17 @@ A hands-on workshop on building AI agents with LangChain, LangGraph, and LangSmi
 | 0:50 - 0:55 | Break |
 | 0:55 - 1:05 | Conceptual: LangSmith — why observability matters |
 | 1:05 - 1:50 | **Hands-on 3:** LangSmith |
+| 1:50 - 2:00 | Wrap-up, further resources, Q&A |
+
+### Day 3 (2 hours)
+
+| Time | Activity |
+|------|----------|
+| 0:00 - 0:10 | Day 2 recap, Q&A |
+| 0:10 - 0:30 | Conceptual: LLM Evaluation — why traditional testing breaks |
+| 0:30 - 1:15 | **Hands-on 4 (Part 1):** Golden datasets, LLM-as-judge, adversarial testing |
+| 1:15 - 1:20 | Break |
+| 1:20 - 1:50 | **Hands-on 4 (Part 2):** RAG evaluation with RAGAS, prompt regression testing |
 | 1:50 - 2:00 | Wrap-up, further resources, Q&A |
 
 ---
@@ -89,6 +101,8 @@ cp .env.example .env
 python -c "from langchain_openai import ChatOpenAI; print('LangChain OK')"
 python -c "from langgraph.graph import StateGraph; print('LangGraph OK')"
 python -c "import langsmith; print('LangSmith OK')"
+python -c "from openevals.llm import create_llm_as_judge; print('OpenEvals OK')"
+python -c "from ragas.metrics import DiscreteMetric; print('RAGAS OK')"
 ```
 
 ---
@@ -101,6 +115,7 @@ Each exercise lives on its own branch. When the instructor says to start an exer
 git checkout 01-langchain-agent   # Exercise 1
 git checkout 02-langgraph-agent   # Exercise 2
 git checkout 03-langsmith         # Exercise 3
+git checkout 04-llm-evaluation    # Exercise 4
 ```
 
 Each branch has:

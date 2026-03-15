@@ -15,6 +15,7 @@ A hands-on workshop on building AI agents with LangChain, LangGraph, LangSmith, 
 | 2. LangGraph Agent | `02-langgraph-agent` | A stateful Blog Writer with planning, research, writing, and review stages |
 | 3. LangSmith | `03-langsmith` | Tracing, evaluation datasets, LLM-as-judge evaluators, and prompt management |
 | 4. LLM Evaluation | `04-llm-evaluation` | Golden datasets, LLM-as-judge, adversarial testing, RAG evaluation, and prompt regression |
+| 5. AI Safety | `05-ai-safety` | Prompt injection defenses, PII redaction, bias testing, rule-based vs LLM, safety guardrail pipeline |
 
 ---
 
@@ -51,7 +52,16 @@ A hands-on workshop on building AI agents with LangChain, LangGraph, LangSmith, 
 | 0:30 - 1:15 | **Hands-on 4 (Part 1):** Golden datasets, LLM-as-judge, adversarial testing |
 | 1:15 - 1:20 | Break |
 | 1:20 - 1:50 | **Hands-on 4 (Part 2):** RAG evaluation with RAGAS, prompt regression testing |
-| 1:50 - 2:00 | Wrap-up, further resources, Q&A |
+| 1:50 - 2:00 | Wrap-up, Q&A |
+
+### AI Safety Session (~1 hour, can follow Day 3 or standalone)
+
+| Time | Activity |
+|------|----------|
+| 0:00 - 0:15 | Conceptual: AI Safety — prompt injection, bias, privacy, when NOT to use LLMs |
+| 0:15 - 0:30 | **Live demo:** Injection attacks, PII redaction, bias probing, LLM vs regex |
+| 0:30 - 0:50 | **Hands-on 5:** Build a safety guardrail pipeline |
+| 0:50 - 1:00 | Wrap-up, safety checklist review, Q&A |
 
 ---
 
@@ -116,6 +126,7 @@ git checkout 01-langchain-agent   # Exercise 1
 git checkout 02-langgraph-agent   # Exercise 2
 git checkout 03-langsmith         # Exercise 3
 git checkout 04-llm-evaluation    # Exercise 4
+git checkout 05-ai-safety         # Exercise 5
 ```
 
 Each branch has:

@@ -257,7 +257,7 @@ async def evaluate_rag_samples() -> None:
     samples = [
         SingleTurnSample(
             user_input="What is LangGraph used for?",
-            response="LangGraph is used for building stateful, multi-step AI workflows with conditional routing and human-in-the-loop.",
+            response="LangGraph provides a StateGraph class for building workflows with nodes and edges. It supports conditional edges, loops, checkpointing, and human-in-the-loop patterns.",
             reference="LangGraph is a framework for building stateful, multi-step workflows using a graph-based architecture.",
             retrieved_contexts=[
                 "LangGraph provides a StateGraph class for building workflows with nodes and edges.",
@@ -266,7 +266,7 @@ async def evaluate_rag_samples() -> None:
         ),
         SingleTurnSample(
             user_input="How does checkpointing work in LangGraph?",
-            response="Checkpointing saves graph state at each step using MemorySaver or PostgresSaver, enabling resume after crashes.",
+            response="Checkpointing uses MemorySaver, a built-in checkpointer for development and testing. It enables pause/resume and multi-turn workflows via thread_id.",
             reference="Checkpointing persists state at each node using a checkpointer like MemorySaver, enabling resume and human-in-the-loop.",
             retrieved_contexts=[
                 "MemorySaver is a built-in checkpointer for development and testing.",

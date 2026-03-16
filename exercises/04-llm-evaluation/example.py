@@ -260,7 +260,7 @@ def demo_6_rag_evaluation():
     samples = [
         SingleTurnSample(
             user_input="What is LangGraph?",
-            response="LangGraph is a framework for building stateful workflows with nodes and edges.",
+            response="LangGraph provides a StateGraph class for building workflows. It supports conditional edges, loops, and checkpointing.",
             reference="LangGraph is a framework for building stateful, multi-step AI workflows.",
             retrieved_contexts=[
                 "LangGraph provides a StateGraph class for building workflows.",

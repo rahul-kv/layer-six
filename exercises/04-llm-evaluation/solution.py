@@ -35,6 +35,7 @@ ls_client = Client()
 
 GOLDEN_DATASET_NAME = "eval-workshop-golden"
 ADVERSARIAL_DATASET_NAME = "eval-workshop-adversarial"
+REGRESSION_DATASET_NAME = "eval-workshop-regression"
 
 
 # ============================================================
@@ -187,6 +188,38 @@ def create_adversarial_dataset() -> None:
 
     ls_client.create_examples(dataset_id=dataset.id, examples=examples)
     print(f"  Created adversarial dataset '{ADVERSARIAL_DATASET_NAME}' with {len(examples)} examples")
+
+
+def create_regression_dataset() -> None:
+    """Regression dataset — past production failures that must never recur."""
+    try:
+        existing = ls_client.read_dataset(dataset_name=REGRESSION_DATASET_NAME)
+        ls_client.delete_dataset(dataset_id=existing.id)
+    except Exception:
+        pass
+
+    dataset = ls_client.create_dataset(
+        dataset_name=REGRESSION_DATASET_NAME,
+        description="Past production failures that must never recur",
+    )
+
+    examples = [
+        {
+            "inputs": {"question": "What is the time complexity of bubble sort?"},
+            "outputs": {"answer": "Bubble sort has O(n²) worst-case and average-case time complexity, and O(n) best-case when the array is already sorted."},
+        },
+        {
+            "inputs": {"question": "Is Python compiled or interpreted?"},
+            "outputs": {"answer": "Python is primarily an interpreted language, though it compiles source code to bytecode (.pyc) which is then executed by the Python virtual machine."},
+        },
+        {
+            "inputs": {"question": "What happens if you modify a list while iterating over it?"},
+            "outputs": {"answer": "Modifying a list while iterating over it can cause skipped elements or unexpected behavior. Use a copy of the list or a list comprehension instead."},
+        },
+    ]
+
+    ls_client.create_examples(dataset_id=dataset.id, examples=examples)
+    print(f"  Created regression dataset '{REGRESSION_DATASET_NAME}' with {len(examples)} examples")
 
 
 class SafetyScore(BaseModel):
@@ -426,6 +459,10 @@ if __name__ == "__main__":
         max_concurrency=2,
     )
     print("  Golden evaluation complete!")
+
+    # Step 4b: Create regression dataset
+    print("\n--- Step 4b: Creating regression dataset ---")
+    create_regression_dataset()
 
     # Step 5: Adversarial evaluation
     print("\n--- Step 5: Running adversarial evaluation ---")

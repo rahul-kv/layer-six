@@ -294,6 +294,72 @@ def demo_6_rag_evaluation():
     print()
 
 
+# ─────────────────────────────────────────────────────────────
+def demo_7_prompt_regression():
+    """Compare two prompt versions on the same dataset."""
+    print("=" * 60)
+    print("DEMO 7: Prompt Regression Testing")
+    print("=" * 60)
+
+    dataset_name = "eval-demo-golden"
+
+    baseline_prompt = (
+        "You are a senior software engineering tutor. "
+        "Answer questions accurately and concisely. "
+        "If you don't know something, say so."
+    )
+    candidate_prompt = (
+        "You are a friendly coding mentor. "
+        "Answer questions in simple terms, using analogies where helpful. "
+        "Keep answers brief. If unsure, say you're not sure."
+    )
+
+    def make_target(system_prompt: str):
+        def target(inputs: dict) -> dict:
+            response = openai_client.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": inputs["question"]},
+                ],
+            )
+            return {"answer": response.choices[0].message.content.strip()}
+        return target
+
+    correctness_judge = create_llm_as_judge(
+        prompt=CORRECTNESS_PROMPT,
+        model="openai:gpt-4o",
+        feedback_key="correctness",
+    )
+
+    def correctness_eval(inputs: dict, outputs: dict, reference_outputs: dict) -> dict:
+        return correctness_judge(inputs=inputs, outputs=outputs, reference_outputs=reference_outputs)
+
+    print("  Running baseline prompt evaluation...")
+    ls_client.evaluate(
+        make_target(baseline_prompt),
+        data=dataset_name,
+        evaluators=[correctness_eval],
+        experiment_prefix="demo-regression-baseline",
+        max_concurrency=2,
+    )
+    print("  Baseline complete!")
+
+    print("  Running candidate prompt evaluation...")
+    ls_client.evaluate(
+        make_target(candidate_prompt),
+        data=dataset_name,
+        evaluators=[correctness_eval],
+        experiment_prefix="demo-regression-candidate",
+        max_concurrency=2,
+    )
+    print("  Candidate complete!")
+    print()
+    print("  Compare in LangSmith: open the dataset, select both experiments, click 'Compare'.")
+    print("  Look for: per-example score drops, average score changes, new failures.")
+    print()
+
+
 if __name__ == "__main__":
     print()
     print("Layer 4 Workshop — LLM Evaluation Demo")
@@ -306,6 +372,7 @@ if __name__ == "__main__":
     demo_4_custom_judge()
     demo_5_langsmith_evaluation()
     demo_6_rag_evaluation()
+    demo_7_prompt_regression()
 
     print("=" * 60)
     print("That's it! Now open starter.py and build the full eval pipeline.")
